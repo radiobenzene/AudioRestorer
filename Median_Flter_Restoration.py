@@ -11,6 +11,7 @@ import scipy.io.wavfile as wav
 from scipy.io import wavfile
 import soundfile as sf
 from playsound import playsound
+import pandas as pd
 #Function to read an audio track
 '''
     Params - track_name - specifies the name of the track to be read
@@ -51,8 +52,12 @@ indicator_indices = getIndex('threshold_index.mat')
 #Loading the 
 threshold_indicator = loadmat('threshold_bk.mat')
 
+#con_list = [[element for element in upperElement] for upperElement in threshold_indicator['thress']]
+
+
 indicator_list = list(threshold_indicator.items())
 indicator_array = np.asarray(indicator_list, dtype = object)
+print(indicator)
 #print(type(indicator_array))
 #print(track.getfp())
 #playsound("corrupted_signal_created.wav")
