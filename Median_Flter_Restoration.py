@@ -50,13 +50,16 @@ indicator_indices = getIndex('threshold_index.mat')
 
 #Loading the 
 threshold_indicator = loadmat('threshold_bk.mat')
-#indicator_list = list(threshold_indicator.items())
-#indicator_array = np.asarray(indicator_list)
+
+indicator_list = list(threshold_indicator.items())
+indicator_array = np.asarray(indicator_list, dtype = object)
 #print(type(indicator_array))
 #print(track.getfp())
 #playsound("corrupted_signal_created.wav")
 #print(type(threshold_indicator))
-print(np.where(track > 20_000))
+#print(type(indicator_array))
+#print(indicator_array)
+print(np.where(indicator_array == 0))
 
 
 
