@@ -4,6 +4,9 @@ import matplotlib.pyplot as plot
 from tqdm import tqdm
 import time
 from scipy.io import loadmat
+import pandas as pd
+from mat4py import loadmat
+import numpy as np
 #Function to read an audio track
 '''
     Params - track_name - specifies the name of the track to be read
@@ -28,6 +31,9 @@ def readIndicator(file_name):
 
 
 track = readTrack('corrupted_signal_created.wav')
+signal = track.readframes(-1)
+signal = np.frombuffer(signal, dtype ="int16")
+
 frame_rate = track.getframerate()
 track_frames = track.getnframes()
 indicator = readIndicator('threshold_bk.mat')
@@ -36,7 +42,10 @@ indicator = readIndicator('threshold_bk.mat')
 #for i in tqdm(range(100), desc= "Processing audio", ncols = 75):
 #   time.sleep(0.1)
 
-con_list = [[element for element in upperElement] for upperElement in indicator['thress']]
 
-print(track_frames)
-print()
+threshold_indicator = loadmat('threshold_bk.mat')
+indicator_list = list(threshold_indicator.items())
+indicator_array = np.asarray(indicator_list)
+print(type(indicator_array))
+#print(track.getfp())
+
