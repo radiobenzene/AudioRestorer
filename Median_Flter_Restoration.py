@@ -13,10 +13,10 @@ def readTrack(track_name):
 
 #Function to plot an audio track frequency
 '''
-    Params - The audio track
+    Params - track - object
     Return - A plot of the audio track
 '''
-def plotTrack(track, fig):
+def plotTrack(track):
     pass
 track = readTrack('corrupted_signal_created.wav')
 frame_rate = track.getframerate()
