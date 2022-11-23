@@ -41,9 +41,8 @@ def getMatlabFile(file_name):
     Return - Converted dictionary as an array
 '''
 def getArrayFromDict(dict_name):
-    dict_list = list(dict_name.items()) 
-    ret_array = np.asarray(dict_list, dtype=object)[3][1][0]
-    return ret_array
+    ret_val = dict_name['thress']
+    return ret_val
 
 #Function to get the detection index
 '''
@@ -144,11 +143,14 @@ threshold_indicator = getArrayFromDict(threshold_indicator_mat)
 
 #Getting indices where the detection array is 1
 threshold_array = getIndex(threshold_indicator, 1)
+threshold_array = threshold_array[1]
 
 #Setting window length here
 window_length = setWindowLength(3)
 
-#print(threshold_array)
+
+print(threshold_array)
+
 #print(window_length)
 
 
