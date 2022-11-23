@@ -13,6 +13,9 @@ from playsound import playsound
 import pandas as pd
 from pymatreader import read_mat
 
+#Defining error code for window with even length
+WINDOW_LEN_EVEN = -1
+
 #Function to read an audio track
 '''
     Params - track_name - specifies the name of the track to be read
@@ -55,6 +58,75 @@ def getIndex(arr, item):
 #Function to set window length for the median filter
 def setWindowLength(val):
     return val
+
+# Function to check if the filter length is odd
+'''
+    Params - filter_len - length of the filter
+    Return - odd_flag - boolean variable if filter length is odd = true, else false
+'''
+def isOddLength(filter_len):
+
+    if (filter_len % 2 == 1):
+        is_odd_flag = True
+
+    else:
+        is_odd_flag = False
+        print("Window size is even")
+        
+    return is_odd_flag
+
+# Function for zero padding of the list
+'''
+    Params - data_list - input list
+           - window_len - window length
+    Return - A padded list with 0s determined by the window length and input list
+'''
+def zeroPadding(data_list, window_len):
+    padded_list = data_list
+
+    N_filter = window_len
+    N_new = int((N_filter - 1) / 2)
+
+    is_odd_flag = isOddLength(window_len)
+
+    if (is_odd_flag == True):
+        padded_list = np.pad(padded_list, (N_new, N_new),
+                             'constant', constant_values=(0, 0))
+
+    else:
+        padded_list = data_list
+
+    return padded_list
+
+# Function for Median filtering
+'''
+    Params - data_list - input list
+           - window_len - window length
+    Return - A new filter after being median filtered
+'''
+def medianFilter(data_list, window_len):
+    new_array = []
+
+    #Case when the length of list is less than window length
+    if (isOddLength(window_len) == False):
+        return WINDOW_LEN_EVEN
+
+    if len(data_list) < window_len:
+        return data_list
+
+    for i in range(len(data_list) - window_len + 1):
+        #Sorting the windowed elements
+        sorted_list = np.sort(data_list[i: i + window_len])
+
+        #Getting the middle element
+        middle_index = int((window_len - 1) / 2)
+
+        #Getting elements from the sorted list
+        middle_elem = sorted_list[middle_index]
+
+        #Creating a new array of only middle elements
+        new_array.append(middle_elem)
+    return new_array
 
 #Get track here
 track = readTrack('corrupted_signal_created.wav')
