@@ -127,6 +127,10 @@ def medianFilter(data_list, window_len):
         new_array.append(middle_elem)
     return new_array
 
+#Function to modify median filter such that window size and list are same
+def modifyList(data_list, window_len):
+    ret_list = data_list
+    pass
 #Get track here
 track = readTrack('corrupted_signal_created.wav')
 
@@ -148,9 +152,10 @@ threshold_array = threshold_array[1]
 #Setting window length here
 window_length = setWindowLength(3)
 
-
-print(threshold_array)
-
+#for i in threshold_array:
+#   medianFilter()
+#print(threshold_array)
+#print(len(track))
 #print(window_length)
 
 
