@@ -1,6 +1,6 @@
 #Author - Uditangshu Aurangabadkar
 import wave
-import matplotlib.pyplot as plot
+import matplotlib.pyplot as plt
 from tqdm import tqdm
 import time
 from scipy.io import loadmat
@@ -24,7 +24,7 @@ WINDOW_LEN_EVEN = -1
 def readTrack(track_name):
     fs, signal = wavfile.read(track_name)
     #data, samplerate = sf.read(track_name)
-    return signal
+    return fs, signal
 
 #Function to read matlab file where index is a 1
 '''
@@ -131,16 +131,24 @@ def medianFilter(data_list, window_len):
 def modifyList(data_list, window_len):
     ret_list = data_list
     pass
+
+#Function to plot the graph
+def plotGraph(track, fs):
+    length = track.shape[0] / fs
+    time = np.linspace(0., length, track.shape[0])
+    plt.plot(time, track)
+    plt.show()
+
 #Get track here
-track = readTrack('corrupted_signal_created.wav')
+fs, track = readTrack('corrupted_signal_created.wav')
 
 #Loading matlab files here
 threshold_indicator_mat = getMatlabFile('threshold_bk.mat')
 indicator_indices_mat = getMatlabFile('threshold_index.mat')
 
 #Progress Bar
-#for i in tqdm(range(100), desc= "Processing audio", ncols = 75):
-#   time.sleep(0.1)
+#for i in tqdm(range(100), desc= "Processing audio", ncols = 100):   
+#    time.sleep(0.1)
 
 #Building an indicator array from matlab
 threshold_indicator = getArrayFromDict(threshold_indicator_mat)
@@ -152,11 +160,28 @@ threshold_array = threshold_array[1]
 #Setting window length here
 window_length = setWindowLength(3)
 
-#for i in threshold_array:
+for i in range(len(threshold_array)):
+    delta = (window_length - 1) / 2
+
+    left_bound = threshold_array[i] - delta
+    right_bound = threshold_array[i] + delta
+
+    data_block = track[int(left_bound) : int(right_bound + 1)]
+
+    padded_data = zeroPadding(data_block, window_length)
+    filtered_data = medianFilter(padded_data, window_length)
+
+    #track[int(left_bound) : int(right_bound + 1)] = filtered_data
+
+plotGraph(track, fs)
+
+
+
+    
 #   medianFilter()
-#print(threshold_array)
+#print(len(threshold_array))
 #print(len(track))
-#print(window_length)
+#print(data_block)
 
 
 
