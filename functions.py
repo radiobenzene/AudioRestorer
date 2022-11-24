@@ -156,3 +156,10 @@ def plotGraph(track, fs):
     time = np.linspace(0., length, track.shape[0])
     plt.plot(time, track)
     plt.show()
+
+#Function to show help
+def showHelp():
+    print("This is an audio restoration project which uses Median Filtering to restore a track\n")
+    print("python3 <file_name> -h displays the Help Menu")
+    print("python3 <file_name> -r runs the program")
+    print("python3 <file_name> -mse gives the MSE error between the audio tracks")
