@@ -157,9 +157,17 @@ def plotGraph(track, fs):
     plt.plot(time, track)
     plt.show()
 
+#Function to get Mean Squared Error for 2 tracks
+def getMSE(clean_track, degraded_track):
+    diff = np.subtract(clean_track, degraded_track)
+    squared = np.square(diff)
+    output = squared.mean()
+    return np.where(output != 0)
+
 #Function to show help
 def showHelp():
     print("This is an audio restoration project which uses Median Filtering to restore a track\n")
     print("python3 <file_name> -h displays the Help Menu")
     print("python3 <file_name> -r runs the program")
     print("python3 <file_name> -mse gives the MSE error between the audio tracks")
+    print("To get the MSE, you must first run the file")
