@@ -138,6 +138,11 @@ def modifyList(data_list, window_len):
     pass
 
 #Function to plot the graph
+'''
+    Params - track - audio track
+           - fs - sampling rate
+    Return - a plotted graph
+'''
 def plotGraph(track, fs):
     length = track.shape[0] / fs
     time = np.linspace(0., length, track.shape[0])
@@ -146,56 +151,57 @@ def plotGraph(track, fs):
 
 
 #Get track here
-fs, track = readTrack('new_degraded.wav')
-track = track
-plotGraph(track, fs)
-#Loading matlab files here
-threshold_indicator_mat = getMatlabFile('threshold_bk.mat')
-#indicator_indices_mat = getMatlabFile('threshold_index.mat')
-
-#Progress Bar
-#for i in tqdm(range(100), desc= "Processing audio", ncols = 100):   
-#    time.sleep(0.1)
-
-#Building an indicator array from matlab
-threshold_indicator = getArrayFromDict(threshold_indicator_mat)
-
-#Getting indices where the detection array is 1
-threshold_array = getIndex(threshold_indicator, 1)
-
-
-#Setting window length here
-window_length = setWindowLength(3)
-
-#Initializing the restored track
-restored_track = track
-
-for i in range(len(threshold_array)):
+def main():
     
-    #Delta is the frame depending on the window length
-    delta = (window_length - 1) / 2
+    fs, track = readTrack('new_degraded.wav')
+    track = track
 
-    #Determing the block bounds here
-    left_bound = threshold_array[i] - delta
-    right_bound = threshold_array[i] + delta
+    #Loading matlab files here
+    threshold_indicator_mat = getMatlabFile('threshold_bk.mat')
     
-    #Determing the data block with which we have to work with
-    data_block = restored_track[int(left_bound) : int(right_bound + 1)]
+    #Building an indicator array from matlab
+    threshold_indicator = getArrayFromDict(threshold_indicator_mat)
 
-    #Padding the block
-    padded_data = zeroPadding(data_block, window_length)
+    #Getting indices where the detection array is 1
+    threshold_array = getIndex(threshold_indicator, 1)
 
-    #Applying the median filter
-    filtered_data = medianFilter(padded_data, window_length)
+    #Setting window length here
+    window_length = setWindowLength(3)
 
-    #Getting the restored track here
-    restored_track[int(left_bound) : int(right_bound + 1)] = filtered_data
+    #Initializing the restored track
+    restored_track = track
 
-#print(restored_track)
-#plotGraph(restored_track, fs)
-#scipy.io.audiowrite()
+    for i in range(len(threshold_array)):
+        
+        #Delta is the frame depending on the window length
+        delta = (window_length - 1) / 2
 
-wavfile.write("clean.wav", fs, restored_track)
+        #Determing the block bounds here
+        left_bound = threshold_array[i] - delta
+        right_bound = threshold_array[i] + delta
+        
+        #Determing the data block with which we have to work with
+        data_block = restored_track[int(left_bound) : int(right_bound + 1)]
+
+        #Padding the block
+        padded_data = zeroPadding(data_block, window_length)
+
+        #Applying the median filter
+        filtered_data = medianFilter(padded_data, window_length)
+
+        #Getting the restored track here
+        restored_track[int(left_bound) : int(right_bound + 1)] = filtered_data
+
+    #Writing the restored .wav file and saving it as "clean.wav"
+    wavfile.write("clean.wav", fs, restored_track)
+
+if __name__ == "__main__":
+    for i in tqdm(range(100), desc= "Processing audio", ncols = 100):   
+        main()
+        time.sleep(0.05)
+    print("Done!")
+    
+        
 
 
 
