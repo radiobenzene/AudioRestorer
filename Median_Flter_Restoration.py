@@ -53,6 +53,7 @@ def getArrayFromDict(dict_name):
 def getIndex(arr, item):
     indices = np.where(arr == item)
     indices = indices[1]
+    indices = indices[1:661500]
     return indices
 
 #Function to set window length for the median filter
@@ -96,6 +97,7 @@ def zeroPadding(data_list, window_len):
     else:
         padded_list = data_list
 
+
     return padded_list
 
 # Function for Median filtering
@@ -126,6 +128,7 @@ def medianFilter(data_list, window_len):
 
         #Creating a new array of only middle elements
         new_array.append(middle_elem)
+
     return np.array(new_array)
 
 #Function to modify median filter such that window size and list are same
@@ -140,13 +143,14 @@ def plotGraph(track, fs):
     plt.plot(time, track)
     plt.show()
 
+
 #Get track here
 fs, track = readTrack('new_degraded.wav')
 track = track
-
+plotGraph(track, fs)
 #Loading matlab files here
 threshold_indicator_mat = getMatlabFile('threshold_bk.mat')
-indicator_indices_mat = getMatlabFile('threshold_index.mat')
+#indicator_indices_mat = getMatlabFile('threshold_index.mat')
 
 #Progress Bar
 #for i in tqdm(range(100), desc= "Processing audio", ncols = 100):   
@@ -162,9 +166,10 @@ threshold_array = getIndex(threshold_indicator, 1)
 #Setting window length here
 window_length = setWindowLength(3)
 
+restored_track = track
+print(threshold_array)
 for i in range(len(threshold_array)):
-    restored_track = track
-
+    
     delta = (window_length - 1) / 2
 
     left_bound = threshold_array[i] - delta
@@ -174,21 +179,15 @@ for i in range(len(threshold_array)):
 
     padded_data = zeroPadding(data_block, window_length)
     filtered_data = medianFilter(padded_data, window_length)
-    print(left_bound)
-    print(right_bound)
 
-    #print(filtered_data)
-    #print(restored_track)
-    #restored_track[int(left_bound) : int(right_bound + 1)] = filtered_data
+   
+    restored_track[int(left_bound) : int(right_bound + 1)] = filtered_data
 
-#plotGraph(track, fs)
 
-print(track)
-    
-#   medianFilter()
-#print(len(threshold_array))
-#print(len(track))
-#print(data_block)
+print(restored_track)
+plotGraph(restored_track, fs)
+#scipy.io.audiowrite()
+wavfile.write("clean.wav", fs, restored_track)
 
 
 
