@@ -36,7 +36,6 @@ def main():
 
     #Initializing the restored track
     restored_track = track
-
     for i in range(len(threshold_array)):
         
         #Delta is the frame depending on the window length
@@ -60,16 +59,20 @@ def main():
 
     #Writing the restored .wav file and saving it as "clean.wav"
     wavfile.write("clean.wav", fs, restored_track)
+    
 
 if __name__ == "__main__":
 
     #Getting the argument list here
+    degraded_track = readTrack("new_degraded.wav")
+    clean_track = readTrack("new_degraded.wav")
+
     argument_list = sys.argv[1:]
 
     #Condensed options
-    options = "hmcr"
+    options = "hmr"
     #Creating a dictionary of options
-    long_options = ["Help", "MSE_metric", "Close", "Run"]
+    long_options = ["Help", "MSE_metric", "Run"]
 
     try:
         # Parsing argument
@@ -82,12 +85,11 @@ if __name__ == "__main__":
                 showHelp()
                 break;
                 
-            elif currentArgument in ("-mse", "--MSE_Metric"):
+            elif currentArgument in ("-m", "--MSE_Metric"):
                 print ("Displaying MSE error")
+                MSE = getMSE(clean_track, degraded_track)
+                print(MSE)
                 
-            elif currentArgument in ("-cls", "--Close"):
-                print ("Closing")
-                quit()
             elif currentArgument in ("-r", "--Run"):
                 for i in tqdm(range(100), desc= "Processing audio", ncols = 100):   
                     main()
