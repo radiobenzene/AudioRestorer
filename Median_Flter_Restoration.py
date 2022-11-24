@@ -14,7 +14,7 @@ import pandas as pd
 from pymatreader import read_mat
 from time import gmtime, strftime
 from functions import *
-import sys
+import sys, getopt
 
 def main():
     
@@ -62,10 +62,42 @@ def main():
     wavfile.write("clean.wav", fs, restored_track)
 
 if __name__ == "__main__":
-    for i in tqdm(range(100), desc= "Processing audio", ncols = 100):   
-        main()
-        time.sleep(0.05)
-    print("Done!")
+
+    #Getting the argument list here
+    argument_list = sys.argv[1:]
+
+    #Condensed options
+    options = "hmcr"
+    #Creating a dictionary of options
+    long_options = ["Help", "MSE_metric", "Close", "Run"]
+
+    try:
+        # Parsing argument
+        arguments, values = getopt.getopt(argument_list, options, long_options)
+
+        for currentArgument, currentValue in arguments:
+ 
+            if currentArgument in ("-h", "--Help"):
+                print ("Displaying Help")
+                showHelp()
+                break;
+                
+            elif currentArgument in ("-mse", "--MSE_Metric"):
+                print ("Displaying MSE error")
+                
+            elif currentArgument in ("-cls", "--Close"):
+                print ("Closing")
+                quit()
+            elif currentArgument in ("-r", "--Run"):
+                for i in tqdm(range(100), desc= "Processing audio", ncols = 100):   
+                    main()
+                    time.sleep(0.05)
+                print("Done!")  
+
+    except getopt.err as error:
+        print(str(err))
+
+    
     
         
 
