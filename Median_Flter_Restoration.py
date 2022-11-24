@@ -12,6 +12,7 @@ import soundfile as sf
 from playsound import playsound
 import pandas as pd
 from pymatreader import read_mat
+from time import gmtime, strftime
 
 #Defining error code for window with even length
 WINDOW_LEN_EVEN = -1
@@ -166,27 +167,34 @@ threshold_array = getIndex(threshold_indicator, 1)
 #Setting window length here
 window_length = setWindowLength(3)
 
+#Initializing the restored track
 restored_track = track
-print(threshold_array)
+
 for i in range(len(threshold_array)):
     
+    #Delta is the frame depending on the window length
     delta = (window_length - 1) / 2
 
+    #Determing the block bounds here
     left_bound = threshold_array[i] - delta
     right_bound = threshold_array[i] + delta
-
+    
+    #Determing the data block with which we have to work with
     data_block = restored_track[int(left_bound) : int(right_bound + 1)]
 
+    #Padding the block
     padded_data = zeroPadding(data_block, window_length)
+
+    #Applying the median filter
     filtered_data = medianFilter(padded_data, window_length)
 
-   
+    #Getting the restored track here
     restored_track[int(left_bound) : int(right_bound + 1)] = filtered_data
 
-
-print(restored_track)
-plotGraph(restored_track, fs)
+#print(restored_track)
+#plotGraph(restored_track, fs)
 #scipy.io.audiowrite()
+
 wavfile.write("clean.wav", fs, restored_track)
 
 
