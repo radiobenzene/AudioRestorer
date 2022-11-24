@@ -52,6 +52,7 @@ def getArrayFromDict(dict_name):
 '''
 def getIndex(arr, item):
     indices = np.where(arr == item)
+    indices = indices[1]
     return indices
 
 #Function to set window length for the median filter
@@ -125,7 +126,7 @@ def medianFilter(data_list, window_len):
 
         #Creating a new array of only middle elements
         new_array.append(middle_elem)
-    return new_array
+    return np.array(new_array)
 
 #Function to modify median filter such that window size and list are same
 def modifyList(data_list, window_len):
@@ -140,7 +141,8 @@ def plotGraph(track, fs):
     plt.show()
 
 #Get track here
-fs, track = readTrack('corrupted_signal_created.wav')
+fs, track = readTrack('new_degraded.wav')
+track = track
 
 #Loading matlab files here
 threshold_indicator_mat = getMatlabFile('threshold_bk.mat')
@@ -155,28 +157,33 @@ threshold_indicator = getArrayFromDict(threshold_indicator_mat)
 
 #Getting indices where the detection array is 1
 threshold_array = getIndex(threshold_indicator, 1)
-threshold_array = threshold_array[1]
+
 
 #Setting window length here
 window_length = setWindowLength(3)
 
 for i in range(len(threshold_array)):
+    restored_track = track
+
     delta = (window_length - 1) / 2
 
     left_bound = threshold_array[i] - delta
     right_bound = threshold_array[i] + delta
 
-    data_block = track[int(left_bound) : int(right_bound + 1)]
+    data_block = restored_track[int(left_bound) : int(right_bound + 1)]
 
     padded_data = zeroPadding(data_block, window_length)
     filtered_data = medianFilter(padded_data, window_length)
+    print(left_bound)
+    print(right_bound)
 
-    #track[int(left_bound) : int(right_bound + 1)] = filtered_data
+    #print(filtered_data)
+    #print(restored_track)
+    #restored_track[int(left_bound) : int(right_bound + 1)] = filtered_data
 
-plotGraph(track, fs)
+#plotGraph(track, fs)
 
-
-
+print(track)
     
 #   medianFilter()
 #print(len(threshold_array))
