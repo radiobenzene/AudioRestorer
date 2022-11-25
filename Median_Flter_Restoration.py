@@ -64,15 +64,15 @@ def main():
 if __name__ == "__main__":
 
     #Getting the argument list here
-    degraded_track = readTrack("new_degraded.wav")
-    clean_track = readTrack("new_degraded.wav")
+    fs_degraded, degraded_track = readTrack("new_degraded.wav")
+    fs_clean, clean_track = readTrack("clean.wav")
 
     argument_list = sys.argv[1:]
 
     #Condensed options
-    options = "hmr"
+    options = "hmrp"
     #Creating a dictionary of options
-    long_options = ["Help", "MSE_metric", "Run"]
+    long_options = ["help", "mse", "run", "plot"]
 
     try:
         # Parsing argument
@@ -80,17 +80,24 @@ if __name__ == "__main__":
 
         for currentArgument, currentValue in arguments:
  
-            if currentArgument in ("-h", "--Help"):
+            if currentArgument in ("-h", "--help"):
                 print ("Displaying Help")
                 showHelp()
-                break;
+                break
                 
-            elif currentArgument in ("-m", "--MSE_Metric"):
+            elif currentArgument in ("-m", "--mse"):
                 print ("Displaying MSE error")
                 MSE = getMSE(clean_track, degraded_track)
                 print(MSE)
+            
+            elif currentArgument in ("-p", "--plot"):
+                print("Plotting graph for the degraded track")
+                plotGraph(degraded_track, fs_degraded)
                 
-            elif currentArgument in ("-r", "--Run"):
+                print("Plotting graph for the restored track")
+                plotGraph(clean_track, fs_clean)
+                
+            elif currentArgument in ("-r", "--run"):
                 for i in tqdm(range(100), desc= "Processing audio", ncols = 100):   
                     main()
                     time.sleep(0.05)
