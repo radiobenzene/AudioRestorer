@@ -21,6 +21,7 @@ import sys
 '''
     The current file contains all the functions
     used in the main() function for median filtering
+    and cubic interpolation
 '''
 #Defining error code for window with even length
 WINDOW_LEN_EVEN = -1
@@ -49,8 +50,8 @@ def getMatlabFile(file_name):
     Params - dict_name - dictionary type variable
     Return - Converted dictionary as an array
 '''
-def getArrayFromDict(dict_name):
-    ret_val = dict_name['thress']
+def getArrayFromDict(dict_name, val):
+    ret_val = dict_name[val]
     return ret_val
 
 #Function to get the detection index
