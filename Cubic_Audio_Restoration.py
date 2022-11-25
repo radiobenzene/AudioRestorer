@@ -14,26 +14,42 @@ import pandas as pd
 from pymatreader import read_mat
 from time import gmtime, strftime
 from functions import *
+from scipy.interpolate import *
 import sys, getopt
 
+#The current functions returns the y value for the cubic interpolation
+def getValues():
+    pass
 #Get track here
 fs, track = readTrack('new_degraded.wav')
 
-#Read Matlab file here
-degraded_data_mat = getMatlabFile('zeroed_sig.mat')
-
+#Loading matlab files here
+threshold_indicator_mat = getMatlabFile('threshold_bk.mat')
+    
 #Building an indicator array from matlab
-degraded_data = getArrayFromDict(degraded_data_mat, 'd_signal')
+threshold_indicator = getArrayFromDict(threshold_indicator_mat, 'thress')
 
 #Specify x value for spline function
-x_val = getIndex(degraded_data, 0)#np.where(degraded_data == 0)
+threshold_array = getIndex(threshold_indicator, 1)
 
 #Setting the max bounds for the loop
-max_bound = len(x_val)
+max_bound = len(threshold_array)
 
-#Setting block length
-block = setBlockLength(3)
+clicked_data = track
 
-#Initializing restored track here
-restored_track = track
-#print(max_bound)
+track_length = len(track)
+
+track_range = np.arange(track_length)
+
+popped_range = np.delete(track_range, threshold_array)
+
+popped_data = np.delete(clicked_data, threshold_array)
+
+print(popped_range)
+print(popped_data)
+cubic_spline = CubicSpline(popped_range, popped_data, bc_type="natural")
+
+for i in range(max_bound):
+    popped_data[threshold_array[i]] = cubic_spline(threshold_array)[i]
+
+plotGraph(popped_data, 44100)
