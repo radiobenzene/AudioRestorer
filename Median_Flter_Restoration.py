@@ -15,6 +15,7 @@ from pymatreader import read_mat
 from time import gmtime, strftime
 from functions import *
 import sys, getopt
+from alive_progress import alive_bar
 
 def main():
     
@@ -60,7 +61,6 @@ def main():
     #Writing the restored .wav file and saving it as "clean.wav"
     wavfile.write("clean_median.wav", fs, restored_track)
     
-
 if __name__ == "__main__":
 
     #Getting the argument list here
@@ -72,9 +72,9 @@ if __name__ == "__main__":
     argument_list = sys.argv[1:]
 
     #Condensed options
-    options = "hmrpd"
+    options = "hmrpds"
     #Creating a dictionary of options
-    long_options = ["help", "mse", "run", "plot", "diff"]
+    long_options = ["help", "mse", "run", "plot", "diff", "secret"]
 
     try:
         # Parsing argument
@@ -111,6 +111,14 @@ if __name__ == "__main__":
                     main()
                     time.sleep(0.05)
                 print("Done!")  
+            
+            elif currentArgument in ("-s", "--secret"):
+                with alive_bar(100, bar = 'notes', spinner = 'notes2') as bar:  
+                    for i in range(100):
+                        main()
+                        time.sleep(0.01)
+                        bar()
+                print("Done!")
 
     except getopt.err as error:
         err = "Invalid Option"
