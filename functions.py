@@ -70,6 +70,10 @@ def getIndex(arr, item):
 def setWindowLength(val):
     return val
 
+#Function to set block length for cubic spline interpolation
+def setBlockLength(val):
+    return val
+    
 # Function to check if the filter length is odd
 '''
     Params - filter_len - length of the filter
