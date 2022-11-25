@@ -62,7 +62,55 @@ def main():
     wavfile.write("clean_cubic.wav", fs, restored_track)
 
 if __name__ == "__main__":
-    
-    clean_cubic = readTrack("clean_cubic.wav")
-    original_clean = readTrack("myclean.wav")
+
+    #Getting the argument list here
+    fs_degraded, degraded_track = readTrack("new_degraded.wav")
+    #fs_median_clean, median_clean_track = readTrack("clean_median.wav")
+    fs_cubic_clean, cubic_clean_track = readTrack("clean_cubic.wav")
+
+    argument_list = sys.argv[1:]
+
+    #Condensed options
+    options = "hmrpd"
+    #Creating a dictionary of options
+    long_options = ["help", "mse", "run", "plot", "diff"]
+
+    try:
+        # Parsing argument
+        arguments, values = getopt.getopt(argument_list, options, long_options)
+
+        for currentArgument, currentValue in arguments:
+ 
+            if currentArgument in ("-h", "--help"):
+                print ("Displaying Help")
+                showHelpForMedian()
+                break
+                
+            elif currentArgument in ("-m", "--mse"):
+                print ("Displaying MSE error")
+                #MSE = getMSE(clean_track, degraded_track)
+                #print(MSE)
+            
+            elif currentArgument in ("-d", "--diff"):
+                print ("Displaying the MSE error difference between the two restored tracks")
+               # MSE = getMSE(clean_track, degraded_track)
+                #print(MSE)
+            
+            elif currentArgument in ("-p", "--plot"):
+                print("Plotting graph for the degraded track")
+                plotGraph(degraded_track, fs_degraded)
+                
+                print("Plotting graph for the restored track")
+                plotGraph(cubic_clean_track, fs_cubic_clean)
+                
+            elif currentArgument in ("-r", "--run"):
+                for i in tqdm(range(100), desc= "Restoring Audio using cubic interpolation", ncols = 100):   
+                    main()
+                    time.sleep(0.05)
+                print("Done!")  
+
+    except getopt.err as error:
+        err = "Invalid Option"
+        print(str(err))
+
 
