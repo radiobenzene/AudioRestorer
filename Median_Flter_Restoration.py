@@ -58,52 +58,62 @@ def main():
         restored_track[int(left_bound) : int(right_bound + 1)] = filtered_data
 
     #Writing the restored .wav file and saving it as "clean.wav"
-    wavfile.write("clean.wav", fs, restored_track)
+    wavfile.write("clean_median.wav", fs, restored_track)
     
 
 if __name__ == "__main__":
 
     #Getting the argument list here
     fs_degraded, degraded_track = readTrack("new_degraded.wav")
-    fs_clean, clean_track = readTrack("clean.wav")
+    fs_median_clean, median_clean_track = readTrack("clean_median.wav")
+    fs_original_clean, original_clean_track = readTrack("myclean.wav")
+    
 
     argument_list = sys.argv[1:]
 
     #Condensed options
-    options = "hmrp"
+    options = "hmrpd"
     #Creating a dictionary of options
-    long_options = ["help", "mse", "run", "plot"]
+    long_options = ["help", "mse", "run", "plot", "diff"]
 
     try:
         # Parsing argument
         arguments, values = getopt.getopt(argument_list, options, long_options)
 
         for currentArgument, currentValue in arguments:
- 
+
             if currentArgument in ("-h", "--help"):
                 print ("Displaying Help")
-                showHelp()
+                showHelpForMedian()
                 break
                 
             elif currentArgument in ("-m", "--mse"):
                 print ("Displaying MSE error")
-                MSE = getMSE(clean_track, degraded_track)
+                MSE = getMSE(median_clean_track, original_clean_track)
                 print(MSE)
             
+            elif currentArgument in ("-d", "--diff"):
+                print ("Displaying the MSE error difference between the two restored tracks")
+                #MSE = getMSE(clean_track, degraded_track)
+                #print(MSE)
+            
             elif currentArgument in ("-p", "--plot"):
+
+            # plotMultipleGraphs(median_clean_track, degraded_track, fs_degraded)
                 print("Plotting graph for the degraded track")
                 plotGraph(degraded_track, fs_degraded)
                 
                 print("Plotting graph for the restored track")
-                plotGraph(clean_track, fs_clean)
+                plotGraph(median_clean_track, fs_median_clean)
                 
             elif currentArgument in ("-r", "--run"):
-                for i in tqdm(range(100), desc= "Processing audio", ncols = 100):   
+                for i in tqdm(range(100), desc= "Restoring Audio using median filtering", ncols = 100):   
                     main()
                     time.sleep(0.05)
                 print("Done!")  
 
     except getopt.err as error:
+        err = "Invalid Option"
         print(str(err))
 
     
