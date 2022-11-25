@@ -16,8 +16,6 @@ from time import gmtime, strftime
 from functions import *
 import sys
 
-
-
 '''
     The current file contains all the functions
     used in the main() function for median filtering
@@ -162,12 +160,28 @@ def plotGraph(track, fs):
     plt.plot(time, track)
     plt.show()
 
+#Function to plot multiple graphs
+def plotMultipleGraphs(track_1, track_2, fs):
+    length_track_1 = track_1.shape[0] / fs
+    length_track_2 = track_2.shape[0] / fs
+
+    time_track_1 = np.linspace(0., length_track_1, length_track_1.shape[0])
+    time_track_2 = np.linspace(0., length_track_2, length_track_2.shape[0])
+
+    plt.subplot(2, 1, 1)
+    plt.plot(time_track_1, length_track_1)
+    plt.show();
+
+    plt.subplot(2, 1, 2)
+    plt.plot(time_track_2, length_track_2)
+    plt.show()
+
 #Function to get Mean Squared Error for 2 tracks
 def getMSE(clean_track, degraded_track):
     diff = np.subtract(clean_track, degraded_track)
     squared = np.square(diff)
     output = squared.mean()
-    return np.where(output != 0)
+    return output
 
 #Function to initialize a new track
 def initializeNewTrack(track):
