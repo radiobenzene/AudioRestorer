@@ -194,16 +194,19 @@ def showHelpForMedian():
     print("python3 <file_name> -h displays the Help Menu")
     print("python3 <file_name> -r runs the program")
     print("python3 <file_name> -m gives the MSE error between the audio tracks")
+    print("python3 <file_name> -s changes the loader theme")
     print("python3 <file_name> -p plots the graphs of the degraded and restored tracks")
     print("python3 <file_name> --diff gives the difference between the MSE of the restored tracks created by either ways")
     print("To get the MSE, you must first run the file")
 
 #Function to show help for cubic filtering
-def showHelpForMedian():
+def showHelpForCubic():
     print("This is an audio restoration project which uses Cubic Filtering to restore a track\n")
     print("python3 <file_name> -h displays the Help Menu")
     print("python3 <file_name> -r runs the program")
+    print("python3 <file_name> -s changes the loader theme")
     print("python3 <file_name> -m gives the MSE error between the audio tracks")
     print("python3 <file_name> -p plots the graphs of the degraded and restored tracks")
+    print("python3 <file_name> --diff gives the difference between the MSE of the restored tracks created by either ways")
     print("python3 <file_name> --diff gives the difference between the MSE of the restored tracks created by either ways")
     print("To get the MSE, you must first run the file")
