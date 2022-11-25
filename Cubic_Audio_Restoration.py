@@ -17,39 +17,52 @@ from functions import *
 from scipy.interpolate import *
 import sys, getopt
 
-#The current functions returns the y value for the cubic interpolation
-def getValues():
-    pass
-#Get track here
-fs, track = readTrack('new_degraded.wav')
+def main():
+    #Get track here
+    fs, track = readTrack('new_degraded.wav')
 
-#Loading matlab files here
-threshold_indicator_mat = getMatlabFile('threshold_bk.mat')
+    #Loading matlab files here
+    threshold_indicator_mat = getMatlabFile('threshold_bk.mat')
+        
+    #Building an indicator array from matlab
+    threshold_indicator = getArrayFromDict(threshold_indicator_mat, 'thress')
+
+    #Specify x value for spline function
+    threshold_array = getIndex(threshold_indicator, 1)
+
+    #Setting the max bounds for the loop
+    max_bound = len(threshold_array)
+
+    #Initializing a new track
+    clicked_data = initializeNewTrack(track)
+
+    #Getting track length here
+    track_length = len(track)
+
+    #Getting range of track length, [0, len(track)]
+    track_range = np.arange(track_length)
+
+    #Deleting indices where a click exists
+    updated_index_block = np.delete(track_range, threshold_array)
+
+    #Deleteing data points where a click exists
+    updated_data_block = np.delete(clicked_data, threshold_array)
+
+    #Using the CubicSpline function
+    cubic_spline = CubicSpline(updated_index_block, updated_data_block, bc_type="natural")
+
+    #Interpolating at every point where there are clicks
+    for i in range(max_bound):
+        updated_data_block[threshold_array[i]] = cubic_spline(threshold_array)[i]
+
+    #Creating a new restored track
+    restored_track = initializeNewTrack(updated_data_block)
+
+    #Writing a new file
+    wavfile.write("clean_cubic.wav", fs, restored_track)
+
+if __name__ == "__main__":
     
-#Building an indicator array from matlab
-threshold_indicator = getArrayFromDict(threshold_indicator_mat, 'thress')
+    clean_cubic = readTrack("clean_cubic.wav")
+    original_clean = readTrack("myclean.wav")
 
-#Specify x value for spline function
-threshold_array = getIndex(threshold_indicator, 1)
-
-#Setting the max bounds for the loop
-max_bound = len(threshold_array)
-
-clicked_data = track
-
-track_length = len(track)
-
-track_range = np.arange(track_length)
-
-popped_range = np.delete(track_range, threshold_array)
-
-popped_data = np.delete(clicked_data, threshold_array)
-
-print(popped_range)
-print(popped_data)
-cubic_spline = CubicSpline(popped_range, popped_data, bc_type="natural")
-
-for i in range(max_bound):
-    popped_data[threshold_array[i]] = cubic_spline(threshold_array)[i]
-
-plotGraph(popped_data, 44100)
