@@ -26,7 +26,7 @@ def main():
     threshold_indicator_mat = getMatlabFile('threshold_bk.mat')
     
     #Building an indicator array from matlab
-    threshold_indicator = getArrayFromDict(threshold_indicator_mat)
+    threshold_indicator = getArrayFromDict(threshold_indicator_mat, 'thress')
 
     #Getting indices where the detection array is 1
     threshold_array = getIndex(threshold_indicator, 1)
