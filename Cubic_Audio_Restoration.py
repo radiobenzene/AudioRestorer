@@ -16,6 +16,7 @@ from time import gmtime, strftime
 from functions import *
 from scipy.interpolate import *
 import sys, getopt
+from alive_progress import alive_bar
 
 def main():
     #Get track here
@@ -71,9 +72,9 @@ if __name__ == "__main__":
     argument_list = sys.argv[1:]
 
     #Condensed options
-    options = "hmrpd"
+    options = "hmrpds"
     #Creating a dictionary of options
-    long_options = ["help", "mse", "run", "plot", "diff"]
+    long_options = ["help", "mse", "run", "plot", "diff", "secret"]
 
     try:
         # Parsing argument
@@ -83,7 +84,7 @@ if __name__ == "__main__":
  
             if currentArgument in ("-h", "--help"):
                 print ("Displaying Help")
-                showHelpForMedian()
+                showHelpForCubic()
                 break
                 
             elif currentArgument in ("-m", "--mse"):
@@ -102,11 +103,19 @@ if __name__ == "__main__":
                 
                 print("Plotting graph for the restored track")
                 plotGraph(cubic_clean_track, fs_cubic_clean)
-                
+            
+            elif currentArgument in ("-s", "--secret"):
+                with alive_bar(100, bar = 'notes', spinner = 'notes2') as bar:  
+                    for i in range(100):
+                        main()
+                        time.sleep(0.01)
+                        bar()
+                print("Done!")
+            
             elif currentArgument in ("-r", "--run"):
-                for i in tqdm(range(100), desc= "Restoring Audio using cubic interpolation", ncols = 100):   
+                for i in tqdm(range(100), desc= "Restoring Audio using cubic interpolation", ncols = 100): 
                     main()
-                    time.sleep(0.05)
+                    time.sleep(0.1)
                 print("Done!")  
 
     except getopt.err as error:
