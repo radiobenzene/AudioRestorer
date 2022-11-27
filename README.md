@@ -6,6 +6,12 @@ Audio restoration has become an integral part of digit age and it's tasks range 
 1. Median Filtering
 2. Cubic Interpolation
 
+The current project uses an original audio track which is then degraded by adding high amplitudes at random points. The file
+``` new_clean
+```
+is an original audio track which does not have any degradations or "clicks". Henceforth, the term "clicks" will be used to denote degradations in the tracks. 
+
+
 ## Getting started
 The project is divided into 3 main files:
 1. Median_Flter_Restoration.py
@@ -30,4 +36,6 @@ The following dependencies can be installed on a local machine using the followi
 The project can be cloned to a local machine via a terminal window using the command:
 `git clone https://github.com/radiobenzene/Audio_Restoration.git`
 
+## Median Filtering
+The current a
 
