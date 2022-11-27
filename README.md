@@ -33,7 +33,9 @@ The following dependencies can be installed on a local machine using the followi
 
 ### Cloning the Project
 The project can be cloned to a local machine via a terminal window using the command:
-```git clone https://github.com/radiobenzene/Audio_Restoration.git```
+```
+git clone https://github.com/radiobenzene/Audio_Restoration.git
+```
 
 ## Median Filtering
 The current a
