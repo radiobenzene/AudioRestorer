@@ -35,7 +35,7 @@ The following dependencies can be installed on a local machine using the followi
 
 ### Cloning the Project
 The project can be cloned to a local machine via a terminal window using the command:
-```
+```sh
 git clone https://github.com/radiobenzene/Audio_Restoration.git
 ```
 
@@ -85,7 +85,7 @@ python3 Median_Flter_Restoration.py --help
 ```
 The user may also type the initial letter of each command extension, i.e `-h`, `-m`, `-p`, `-d`, `-t`, `-s`, `-u` and `-h` respectively.
 The command extension `--run` runs the project, creating a restored audio file and displaying the execution time. 
-For a cubic
+For the cubic interpolation algorithm, replace `Median_Flter_Restoration` with `Cubic_Interpolation_Algorithm`. The two programs share command extensions. 
 
 ## Plots
 ### Plots for the Median Filtered Audiotrack
@@ -129,4 +129,21 @@ The MSE for the median filtered track is 0.27 and the MSE for the Cubic Interpol
 ```
 python3 Median_Flter_Restoration.py --diff
 ```
+The comparison of the MSE and window length can be visualized using the following graph:
 
+
+## Playing the sound
+To play the restored audio track for the median filtered algorithm, the following command must be used:
+```
+python3 Median_Flter_Restoration.py --sound
+```
+To play the cubic interpolated restored audiotrack, the following command must be used:
+```
+python3 Cubic_Audio_Restoration --sound
+```
+
+## Themes
+An interesting addition to the project is the option of changing the theme of the loader which can be done using the extension `--theme` or `-t`. 
+
+## Credits 
+Written by Uditangshu. Project for the 5C22 Computational Methods Module. Trinity College Dublin. 2022.
