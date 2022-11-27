@@ -51,7 +51,7 @@ Let us detail the algorithm for median filtering:
 8. Substitue those values which have been filtered back into the track
 9. Write the track to a new file - `clean_median.wav`
 
-### Implementation specifics
+## Implementation specifics
 The following command must be typed in to run the median filtering algorithm on a local machine:
 ```
 python3 Median_Flter_Restoration.py --run
@@ -59,6 +59,14 @@ python3 Median_Flter_Restoration.py --run
 or
 ```
 python3 Median_Flter_Restoration.py -r
+```
+The following command must be typed in to run the cubic interpolation algorithm on a local machine:
+```
+python3 Cubic_Interpolation_Algorithm.py --run
+```
+or
+```
+python3 Cubic_Interpolation_Algorithm.py -r
 ```
 The command extensions for the project are as follows:
 ```
@@ -77,12 +85,21 @@ python3 Median_Flter_Restoration.py --help
 ```
 The user may also type the initial letter of each command extension, i.e `-h`, `-m`, `-p`, `-d`, `-t`, `-s`, `-u` and `-h` respectively.
 The command extension `--run` runs the project, creating a restored audio file and displaying the execution time. 
+For a cubic
 
 ## Plots
+### Plots for the Median Filtered Audiotrack
 These are the plots
 The plots can be printed using the following command
 ```
 python3 Median_Flter_Restoration.py --plot
+```
+
+### Plots for the Cubic Interpolated Audiotrack
+These are the plots
+The plots can be printed using the following command
+```
+python3 Cubic_Audio_Restoration --plot
 ```
 
 ## Unit testing
@@ -96,6 +113,20 @@ The user may also run 2 separate unit tests by executing the file `unit_test.py`
 python3 unit_test.py
 ```
 After every unit test, an **OK** is printed if the test is passed, otherwise **NOT OK** is printed, along with the number of passed and failed tests.
+The unit test feature is only available for median filtering.
 
 ## Performance Metrics
+The Mean Sqaured Error, or the MSE, was calculated for the restored track and the original track to quantify the improvement on the audiotrack. The following command can be used to print the MSE:
+```
+python3 Median_Flter_Restoration.py --mse
+```
+To get the MSE of the cubic interpolated audiotrack, the following command must be used:
+```
+python3 Cubic_Audio_Restoration --mse
+```
+
+The MSE for the median filtered track is 0.27 and the MSE for the Cubic Interpolated track is __ . The difference between the MSEs of the 2 tracks can be printed using the following command:
+```
+python3 Median_Flter_Restoration.py --diff
+```
 
