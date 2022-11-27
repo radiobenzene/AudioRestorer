@@ -18,6 +18,7 @@ import sys, getopt
 from alive_progress import alive_bar
 import subprocess
 
+
 def main():
     
     #Get track here
@@ -68,14 +69,15 @@ if __name__ == "__main__":
     fs_degraded, degraded_track = readTrack("new_degraded.wav")
     fs_median_clean, median_clean_track = readTrack("clean_median.wav")
     fs_original_clean, original_clean_track = readTrack("new_clean.wav")
-    MSE = getMSE(median_clean_track, original_clean_track)
+
+    MSE_Median = getMSE(median_clean_track, original_clean_track)
 
     argument_list = sys.argv[1:]
 
     #Condensed options
-    options = "hmrpds"
+    options = "hmrpdtsu"
     #Creating a dictionary of options
-    long_options = ["help", "mse", "run", "plot", "diff", "secret"]
+    long_options = ["help", "mse", "run", "plot", "diff", "theme", "sound", "unit"]
 
     try:
         # Parsing argument
@@ -90,16 +92,22 @@ if __name__ == "__main__":
                 
             elif currentArgument in ("-m", "--mse"):
                 print ("Displaying MSE error")
-                MSE = getMSE(median_clean_track, original_clean_track)
-                print(MSE)
+                print(MSE_Median)
             
+            elif currentArgument in ("-s", "--sound"):
+                print ("Playing degraded audio tracks")
+                degraded_song = "new_degraded.wav"
+                #playsound(degraded_song)
+
+            elif currentArgument in ("-u", "--unit"):
+                individualUnitTest()
+
             elif currentArgument in ("-d", "--diff"):
                 print ("Displaying the MSE error difference between the two restored tracks")
                 #MSE = getMSE(clean_track, degraded_track)
                 #print(MSE)
             
             elif currentArgument in ("-p", "--plot"):
-
             # plotMultipleGraphs(median_clean_track, degraded_track, fs_degraded)
                 print("Plotting graph for the degraded track")
                 plotGraph(degraded_track, fs_degraded)
@@ -113,6 +121,7 @@ if __name__ == "__main__":
                 for i in tqdm(range(100), desc= "Restoring Audio using median filtering", ncols = 100):   
                     main()
                     time.sleep(0.05)
+                
                 print("Done!")  
 
                 #Calculating the elapsed time here
@@ -120,7 +129,8 @@ if __name__ == "__main__":
                 elapsed_time = end_time - start_time
                 print("The elapsed time is", round(elapsed_time, 4), "seconds")
             
-            elif currentArgument in ("-s", "--secret"):
+            #Changing the loader there
+            elif currentArgument in ("-t", "--theme"):
                 with alive_bar(100, bar = 'notes', spinner = 'notes2') as bar:  
                     for i in range(100):
                         main()
