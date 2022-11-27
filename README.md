@@ -13,6 +13,20 @@ The project is divided into 3 main files:
 3. unit_test.py
 
 To run any of the files, please check whether your machine has the following dependencies:
-`wave`
+1. wave
+2. tqdm
+3. matplotlib
+4. pandas
+5. scipy
+6. playsound
+7. pymatreader
+8. alive_progress
+9. sys
+10. subprocess
+
+The following dependencies can be installed on a local machine using the following command - `pip install <dependency_name>`
+
+### Cloning the Project
+The project can be cloned to a local machine via a terminal window using the command - `git clone https://github.com/radiobenzene/Audio_Restoration.git`
 
 
