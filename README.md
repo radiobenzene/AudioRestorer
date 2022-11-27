@@ -17,6 +17,8 @@ The project is divided into 3 main files:
 2. Cubic_Audio_Restoration.py
 3. unit_test.py
 
+### Dependencies
+
 To run any of the files, please check whether your machine has the following dependencies:
 1. wave
 2. tqdm
@@ -58,3 +60,42 @@ or
 ```
 python3 Median_Flter_Restoration.py -r
 ```
+The command extensions for the project are as follows:
+```
+python3 Median_Flter_Restoration.py --run
+python3 Median_Flter_Restoration.py --mse
+python3 Median_Flter_Restoration.py --plot
+python3 Median_Flter_Restoration.py --diff
+python3 Median_Flter_Restoration.py --theme
+python3 Median_Flter_Restoration.py --sound
+python3 Median_Flter_Restoration.py --unit
+python3 Median_Flter_Restoration.py --help
+```
+A list of features can be found by typing:
+```
+python3 Median_Flter_Restoration.py --help
+```
+The user may also type the initial letter of each command extension, i.e `-h`, `-m`, `-p`, `-d`, `-t`, `-s`, `-u` and `-h` respectively.
+The command extension `--run` runs the project, creating a restored audio file and displaying the execution time. 
+
+## Plots
+These are the plots
+The plots can be printed using the following command
+```
+python3 Median_Flter_Restoration.py --plot
+```
+
+## Unit testing
+To run unit tests for the `medianFilter()` function, type in the command 
+```
+python3 Median_Flter_Restoration.py --unit
+```
+This generates 5 tests on different tests sets with a minimum list length of *10* and a maximum of *20052*.
+The user may also run 2 separate unit tests by executing the file `unit_test.py` using the following command
+```
+python3 unit_test.py
+```
+After every unit test, an **OK** is printed if the test is passed, otherwise **NOT OK** is printed, along with the number of passed and failed tests.
+
+## Performance Metrics
+
