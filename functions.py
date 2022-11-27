@@ -9,12 +9,16 @@ import numpy as np
 import scipy.io.wavfile as wav
 from scipy.io import wavfile
 import soundfile as sf
+import unittest
 from playsound import playsound
 import pandas as pd
 from pymatreader import read_mat
 from time import gmtime, strftime
 from functions import *
+import unittest
 import sys
+import scipy
+import random
 
 '''
     The current file contains all the functions
@@ -183,6 +187,90 @@ def getMSE(clean_track, degraded_track):
     output = squared.mean()
     return output
 
+# Function to use inbuilt median function
+'''
+    Params - data_list - list of numbers on which a median filter must be applied
+           - window_len - window_length
+    Return - Filtered list using Median filter
+'''
+def checkerFunction(data_list, window_len):
+    out = scipy.signal.medfilt(data_list, kernel_size = window_len)
+    return out
+
+#Function to generate random number list of total_len size
+def generateList(total_len):
+    random_list = []
+    for i in range(0, total_len):
+        n = random.randint(1,30)
+        random_list.append(n)
+    return random_list
+
+#Function  to test individual functions
+'''
+    The current function is for individual unit tests
+'''
+def individualUnitTest():
+    pass_counter = 0
+    fail_counter = 0
+
+    total_tests = 5
+
+    #Generating first test and then checking
+    raw_list_1 = generateList(10)
+    window_1 = 3
+    list_1 = zeroPadding(raw_list_1, window_1)
+    if(np.array_equal(np.array(medianFilter(list_1, window_1)), checkerFunction(raw_list_1, window_1))):
+        pass_counter = pass_counter + 1
+        print("OK")
+    else:
+        fail_counter = fail_counter + 1
+        print("NOT OK")
+
+    raw_list_2 = generateList(12)
+    window_2 = 5
+    list_2 = zeroPadding(raw_list_2, window_2)
+    if(np.array_equal(np.array(medianFilter(list_2, window_2)), checkerFunction(raw_list_2, window_2))):
+        pass_counter = pass_counter + 1
+        print("OK")
+    else:
+        fail_counter = fail_counter + 1
+        print("NOT OK")
+
+    raw_list_3 = generateList(22)
+    window_3 = 7
+    list_3 = zeroPadding(raw_list_3, window_3)
+    if(np.array_equal(np.array(medianFilter(list_3, window_3)), checkerFunction(raw_list_3, window_3))):
+        pass_counter = pass_counter + 1
+        print("OK")
+    else:
+        fail_counter = fail_counter + 1
+        print("NOT OK")
+
+    raw_list_4 = generateList(1052)
+    window_4 = 5
+    list_4 = zeroPadding(raw_list_4, window_4)
+    if(np.array_equal(np.array(medianFilter(list_4, window_4)), checkerFunction(raw_list_4, window_4))):
+        pass_counter = pass_counter + 1
+        print("OK")
+    else:
+        fail_counter = fail_counter + 1
+        print("NOT OK")
+
+    raw_list_4 = generateList(20052)
+    window_4 = 11
+    list_4 = zeroPadding(raw_list_4, window_4)
+    if(np.array_equal(np.array(medianFilter(list_4, window_4)), checkerFunction(raw_list_4, window_4))):
+        pass_counter = pass_counter + 1
+        print("OK")
+    else:
+        fail_counter = fail_counter + 1
+        print("NOT OK")
+
+    #Displaying the passed tests 
+    print("Total tests passed:", pass_counter, "/", total_tests)
+    print("Total tests failed:", fail_counter, "/", total_tests)
+
+
 #Function to initialize a new track
 def initializeNewTrack(track):
     new_track = track
@@ -196,6 +284,7 @@ def showHelpForMedian():
     print("python3 <file_name> -m gives the MSE error between the audio tracks")
     print("python3 <file_name> -s changes the loader theme")
     print("python3 <file_name> -p plots the graphs of the degraded and restored tracks")
+    print("python3 <file_name> -t to change the loader theme")
     print("python3 <file_name> --diff gives the difference between the MSE of the restored tracks created by either ways")
     print("To get the MSE, you must first run the file")
 
@@ -207,6 +296,7 @@ def showHelpForCubic():
     print("python3 <file_name> -s changes the loader theme")
     print("python3 <file_name> -m gives the MSE error between the audio tracks")
     print("python3 <file_name> -p plots the graphs of the degraded and restored tracks")
+    print("python3 <file_name> -t to change loader theme")
     print("python3 <file_name> --diff gives the difference between the MSE of the restored tracks created by either ways")
     print("python3 <file_name> --diff gives the difference between the MSE of the restored tracks created by either ways")
     print("To get the MSE, you must first run the file")
