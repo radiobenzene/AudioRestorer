@@ -7,8 +7,7 @@ Audio restoration has become an integral part of digit age and it's tasks range 
 2. Cubic Interpolation
 
 The current project uses an original audio track which is then degraded by adding high amplitudes at random points. The file
-``` new_clean
-```
+`new_clean.wav`
 is an original audio track which does not have any degradations or "clicks". Henceforth, the term "clicks" will be used to denote degradations in the tracks. 
 
 
@@ -34,7 +33,7 @@ The following dependencies can be installed on a local machine using the followi
 
 ### Cloning the Project
 The project can be cloned to a local machine via a terminal window using the command:
-`git clone https://github.com/radiobenzene/Audio_Restoration.git`
+```git clone https://github.com/radiobenzene/Audio_Restoration.git```
 
 ## Median Filtering
 The current a
