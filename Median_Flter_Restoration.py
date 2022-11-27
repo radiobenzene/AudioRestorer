@@ -16,6 +16,7 @@ from time import gmtime, strftime
 from functions import *
 import sys, getopt
 from alive_progress import alive_bar
+import subprocess
 
 def main():
     
@@ -67,7 +68,7 @@ if __name__ == "__main__":
     fs_degraded, degraded_track = readTrack("new_degraded.wav")
     fs_median_clean, median_clean_track = readTrack("clean_median.wav")
     fs_original_clean, original_clean_track = readTrack("new_clean.wav")
-    
+    MSE = getMSE(median_clean_track, original_clean_track)
 
     argument_list = sys.argv[1:]
 
@@ -107,10 +108,17 @@ if __name__ == "__main__":
                 plotGraph(median_clean_track, fs_median_clean)
                 
             elif currentArgument in ("-r", "--run"):
+                #Starting timer here
+                start_time = time.time()
                 for i in tqdm(range(100), desc= "Restoring Audio using median filtering", ncols = 100):   
                     main()
                     time.sleep(0.05)
                 print("Done!")  
+
+                #Calculating the elapsed time here
+                end_time = time.time()
+                elapsed_time = end_time - start_time
+                print("The elapsed time is", round(elapsed_time, 4), "seconds")
             
             elif currentArgument in ("-s", "--secret"):
                 with alive_bar(100, bar = 'notes', spinner = 'notes2') as bar:  
