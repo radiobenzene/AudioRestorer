@@ -17,6 +17,7 @@ from functions import *
 from scipy.interpolate import *
 import sys, getopt
 from alive_progress import alive_bar
+import subprocess
 
 def main():
     #Get track here
@@ -68,6 +69,7 @@ if __name__ == "__main__":
     fs_degraded, degraded_track = readTrack("new_degraded.wav")
     #fs_median_clean, median_clean_track = readTrack("clean_median.wav")
     fs_cubic_clean, cubic_clean_track = readTrack("clean_cubic.wav")
+    fs_original_clean, original_clean_track = readTrack("new_clean.wav")
 
     argument_list = sys.argv[1:]
 
@@ -89,8 +91,8 @@ if __name__ == "__main__":
                 
             elif currentArgument in ("-m", "--mse"):
                 print ("Displaying MSE error")
-                #MSE = getMSE(clean_track, degraded_track)
-                #print(MSE)
+                MSE = getMSE(cubic_clean_track, original_clean_track)
+                print(MSE)
             
             elif currentArgument in ("-d", "--diff"):
                 print ("Displaying the MSE error difference between the two restored tracks")
@@ -113,10 +115,17 @@ if __name__ == "__main__":
                 print("Done!")
             
             elif currentArgument in ("-r", "--run"):
+                #Starting timer here
+                start_time = time.time()
                 for i in tqdm(range(100), desc= "Restoring Audio using cubic interpolation", ncols = 100): 
                     main()
                     time.sleep(0.1)
                 print("Done!")  
+
+                #Calculating elapsed time
+                end_time = time.time()
+                elapsed_time = end_time - start_time
+                print("The elapsed time is", round(elapsed_time, 4), "seconds")
 
     except getopt.err as error:
         err = "Invalid Option"
