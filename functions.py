@@ -64,9 +64,9 @@ def getArrayFromDict(dict_name, val):
 '''
 def getIndex(arr, item):
     indices = np.where(arr == item)
-    print(indices)
+    
     indices = indices[1]
-    indices = indices[1:661500]
+    indices = indices[1:661871] #661500
     
     return indices
 
@@ -154,12 +154,7 @@ def medianFilter(data_list, window_len):
         #Creating a new array of only middle elements
         new_array.append(middle_elem)
 
-    return np.array(new_array)
-
-#Function to modify median filter such that window size and list are same
-def modifyList(data_list, window_len):
-    ret_list = data_list
-    pass
+    return new_array #np.array(new_array)
 
 #Function to plot the graph
 '''
@@ -176,24 +171,9 @@ def plotGraph(track, fs, title):
     plt.ylabel("Signal Amplitude")
     plt.show()
 
-#Function to plot multiple graphs
-def plotMultipleGraphs(track_1, track_2, fs):
-    length_track_1 = track_1.shape[0] / fs
-    length_track_2 = track_2.shape[0] / fs
-
-    time_track_1 = np.linspace(0., length_track_1, track_1.shape[0])
-    time_track_2 = np.linspace(0., length_track_2, track_2.shape[0])
-
-    plt.subplot(2, 1, 1)
-    plt.plot(time_track_1, length_track_1)
-
-    plt.subplot(2, 1, 2)
-    plt.plot(time_track_2, length_track_2)
-    plt.show()
-
 #Function to get Mean Squared Error for 2 tracks
 def getMSE(clean_track, degraded_track):
-    diff = np.subtract(clean_track, degraded_track)
+    diff = (np.subtract(clean_track, degraded_track))
     squared = np.square(diff)
     output = squared.mean()
     return output
