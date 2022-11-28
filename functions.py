@@ -64,8 +64,15 @@ def getArrayFromDict(dict_name, val):
 '''
 def getIndex(arr, item):
     indices = np.where(arr == item)
+    print(indices)
     indices = indices[1]
     indices = indices[1:661500]
+    
+    return indices
+
+def getIndexCubic(arr, item):
+    indices = np.where(arr == item)
+    indices = indices[1]
     return indices
 
 #Function to set window length for the median filter
@@ -82,6 +89,7 @@ def setBlockLength(val):
     Return - odd_flag - boolean variable if filter length is odd = true, else false
 '''
 def isOddLength(filter_len):
+    is_odd_flag = False
 
     if (filter_len % 2 == 1):
         is_odd_flag = True
@@ -89,6 +97,7 @@ def isOddLength(filter_len):
     else:
         is_odd_flag = False
         print("Window size is even")
+        
         
     return is_odd_flag
 
@@ -158,10 +167,13 @@ def modifyList(data_list, window_len):
            - fs - sampling rate
     Return - a plotted graph
 '''
-def plotGraph(track, fs):
+def plotGraph(track, fs, title):
     length = track.shape[0] / fs
     time = np.linspace(0., length, track.shape[0])
     plt.plot(time, track)
+    plt.title(title)
+    plt.xlabel("Time (in seconds)")
+    plt.ylabel("Signal Amplitude")
     plt.show()
 
 #Function to plot multiple graphs
@@ -169,12 +181,11 @@ def plotMultipleGraphs(track_1, track_2, fs):
     length_track_1 = track_1.shape[0] / fs
     length_track_2 = track_2.shape[0] / fs
 
-    time_track_1 = np.linspace(0., length_track_1, length_track_1.shape[0])
-    time_track_2 = np.linspace(0., length_track_2, length_track_2.shape[0])
+    time_track_1 = np.linspace(0., length_track_1, track_1.shape[0])
+    time_track_2 = np.linspace(0., length_track_2, track_2.shape[0])
 
     plt.subplot(2, 1, 1)
     plt.plot(time_track_1, length_track_1)
-    plt.show();
 
     plt.subplot(2, 1, 2)
     plt.plot(time_track_2, length_track_2)
