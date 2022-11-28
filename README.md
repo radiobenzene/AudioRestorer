@@ -122,6 +122,7 @@ python3 unit_test.py
 ```
 After every unit test, an **OK** is printed if the test is passed, otherwise **NOT OK** is printed, along with the number of passed and failed tests.
 The unit test feature is only available for median filtering.
+The separate file `unit_test.py` uses Python's *unittest* module and runs only 2 tests.
 
 ## Performance Metrics
 The Mean Sqaured Error, or the MSE, was calculated for the restored track and the original track to quantify the improvement on the audiotrack. The following command can be used to print the MSE:
@@ -132,13 +133,16 @@ To get the MSE of the cubic interpolated audiotrack, the following command must 
 ```
 python3 Cubic_Audio_Restoration --mse
 ```
-
+### Mean Squared Error
 The MSE for the median filtered track is **0.27** and the MSE for the Cubic Interpolated track is **0.30**. The difference between the MSEs of the 2 tracks can be printed using the following command:
 ```
 python3 Median_Flter_Restoration.py --diff
 ```
 The comparison of the MSEs can be visualized using the following graph:
 
+### Execution Time
+The execution time for a track restored using a **median filter** is **7.6637** seconds.
+The execution time for a track restored using a **cubic interpolation** is **17.7269** seconds
 
 ## Playing the sound
 To play the restored audio track for the median filtered algorithm, the following command must be used:
