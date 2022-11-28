@@ -154,7 +154,7 @@ def medianFilter(data_list, window_len):
         #Creating a new array of only middle elements
         new_array.append(middle_elem)
 
-    return new_array #np.array(new_array)
+    return new_array
 
 #Function to plot the graph
 '''
@@ -189,6 +189,10 @@ def checkerFunction(data_list, window_len):
     return out
 
 #Function to generate random number list of total_len size
+'''
+    Params - length of the list
+    Return - Randomly generated list
+'''
 def generateList(total_len):
     random_list = []
     for i in range(0, total_len):
@@ -273,7 +277,6 @@ def showHelpForMedian():
     print("python3 <file_name> -h displays the Help Menu")
     print("python3 <file_name> -r runs the program")
     print("python3 <file_name> -m gives the MSE error between the audio tracks")
-    print("python3 <file_name> -s changes the loader theme")
     print("python3 <file_name> -p plots the graphs of the degraded and restored tracks")
     print("python3 <file_name> -t to change the loader theme")
     print("python3 <file_name> --diff gives the difference between the MSE of the restored tracks created by either ways")
@@ -284,7 +287,6 @@ def showHelpForCubic():
     print("This is an audio restoration project which uses Cubic Filtering to restore a track\n")
     print("python3 <file_name> -h displays the Help Menu")
     print("python3 <file_name> -r runs the program")
-    print("python3 <file_name> -s changes the loader theme")
     print("python3 <file_name> -m gives the MSE error between the audio tracks")
     print("python3 <file_name> -p plots the graphs of the degraded and restored tracks")
     print("python3 <file_name> -t to change loader theme")
