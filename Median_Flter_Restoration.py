@@ -39,6 +39,7 @@ def main():
 
     #Initializing the restored track
     restored_track = track
+    
     for i in range(len(threshold_array)):
         
         #Delta is the frame depending on the window length
@@ -50,7 +51,7 @@ def main():
         
         #Determing the data block with which we have to work with
         data_block = restored_track[int(left_bound) : int(right_bound + 1)]
-
+        
         #Padding the block
         padded_data = zeroPadding(data_block, window_length)
 
@@ -59,16 +60,16 @@ def main():
 
         #Getting the restored track here
         restored_track[int(left_bound) : int(right_bound + 1)] = filtered_data
-
+        
     #Writing the restored .wav file and saving it as "clean.wav"
     wavfile.write("clean_median.wav", fs, restored_track)
     
 if __name__ == "__main__":
 
     #Getting the argument list here
-    fs_degraded, degraded_track = readTrack("new_degraded.wav")
-    fs_median_clean, median_clean_track = readTrack("clean_median.wav")
-    fs_original_clean, original_clean_track = readTrack("new_clean.wav")
+    #fs_degraded, degraded_track = readTrack("new_degraded.wav")
+   # fs_median_clean, median_clean_track = readTrack("clean_median.wav")
+    #fs_original_clean, original_clean_track = readTrack("new_clean.wav")
 
     argument_list = sys.argv[1:]
 
@@ -89,6 +90,9 @@ if __name__ == "__main__":
                 break
                 
             elif currentArgument in ("-m", "--mse"):
+                fs_median_clean, median_clean_track = readTrack("clean_median.wav")
+                fs_original_clean, original_clean_track = readTrack("new_clean.wav")
+
                 print ("Displaying MSE error")
                 MSE_Median = getMSE(median_clean_track, original_clean_track)
                 print(MSE_Median)
@@ -103,16 +107,27 @@ if __name__ == "__main__":
 
             elif currentArgument in ("-d", "--diff"):
                 print ("Displaying the MSE error difference between the two restored tracks")
+                fs_median_clean, median_clean_track = readTrack("clean_median.wav")
+                fs_original_clean, original_clean_track = readTrack("new_clean.wav")
+
                 MSE_Median = getMSE(median_clean_track, original_clean_track)
                 #MSE = getMSE(clean_track, degraded_track)
                 #print(MSE)
             
             elif currentArgument in ("-p", "--plot"):
+
+                fs_degraded, degraded_track = readTrack("new_degraded.wav")
+                fs_median_clean, median_clean_track = readTrack("clean_median.wav")
+                fs_original_clean, original_clean_track = readTrack("new_clean.wav")
+
                 print("Plotting graph for the degraded track")
                 plotGraph(degraded_track, fs_degraded, "Degraded Signal")
                 
                 print("Plotting graph for the restored track")
                 plotGraph(median_clean_track, fs_median_clean, "Restored Signal")
+
+                print("Plotting graph for the original track")
+                plotGraph(original_clean_track, fs_original_clean, "Original Track")
 
 
             elif currentArgument in ("-r", "--run"):
