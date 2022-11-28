@@ -105,13 +105,16 @@ if __name__ == "__main__":
                 #Read track here
                 fs_cubic_clean, cubic_clean_track = readTrack("clean_cubic.wav")
                 fs_median_clean, median_clean_track = readTrack("clean_median.wav")
+                fs_original_clean, original_clean_track = readTrack("new_clean.wav")
 
                 #Calculate MSE here
                 MSE_cubic = getMSE(cubic_clean_track, original_clean_track)
                 MSE_median = getMSE(median_clean_track, original_clean_track)
+                MSE_diff = MSE_cubic - MSE_median
 
                 print("MSE for Cubic interpolation:", MSE_cubic)
                 print("MSE for Cubic interpolation:", MSE_median)
+                print("Displaying the MSE differences", MSE_diff)
             
             elif currentArgument in ("-p", "--plot"):
 
