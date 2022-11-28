@@ -35,7 +35,7 @@ def main():
     threshold_array = getIndex(threshold_indicator, 1)
 
     #Setting window length here
-    window_length = setWindowLength(3)
+    window_length = setWindowLength(3) #This was 3
 
     #Initializing the restored track
     restored_track = track
@@ -70,8 +70,6 @@ if __name__ == "__main__":
     fs_median_clean, median_clean_track = readTrack("clean_median.wav")
     fs_original_clean, original_clean_track = readTrack("new_clean.wav")
 
-    MSE_Median = getMSE(median_clean_track, original_clean_track)
-
     argument_list = sys.argv[1:]
 
     #Condensed options
@@ -92,6 +90,7 @@ if __name__ == "__main__":
                 
             elif currentArgument in ("-m", "--mse"):
                 print ("Displaying MSE error")
+                MSE_Median = getMSE(median_clean_track, original_clean_track)
                 print(MSE_Median)
             
             elif currentArgument in ("-s", "--sound"):
@@ -108,13 +107,13 @@ if __name__ == "__main__":
                 #print(MSE)
             
             elif currentArgument in ("-p", "--plot"):
-            # plotMultipleGraphs(median_clean_track, degraded_track, fs_degraded)
                 print("Plotting graph for the degraded track")
-                plotGraph(degraded_track, fs_degraded)
+                plotGraph(degraded_track, fs_degraded, "Degraded Signal")
                 
                 print("Plotting graph for the restored track")
-                plotGraph(median_clean_track, fs_median_clean)
-                
+                plotGraph(median_clean_track, fs_median_clean, "Restored Signal")
+
+
             elif currentArgument in ("-r", "--run"):
                 #Starting timer here
                 start_time = time.time()
