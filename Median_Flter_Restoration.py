@@ -35,7 +35,7 @@ def main():
     threshold_array = getIndex(threshold_indicator, 1)
 
     #Setting window length here
-    window_length = setWindowLength(3) #This was 3
+    window_length = setWindowLength(3) 
 
     #Initializing the restored track
     restored_track = track
@@ -46,11 +46,11 @@ def main():
         delta = (window_length - 1) / 2
 
         #Determing the block bounds here
-        left_bound = threshold_array[i] - delta
-        right_bound = threshold_array[i] + delta
+        left_bound = threshold_array[i] - int(delta)
+        right_bound = threshold_array[i] + int(delta) + 1
         
         #Determing the data block with which we have to work with
-        data_block = restored_track[int(left_bound) : int(right_bound + 1)]
+        data_block = restored_track[int(left_bound) : int(right_bound)]
         
         #Padding the block
         padded_data = zeroPadding(data_block, window_length)
@@ -59,7 +59,7 @@ def main():
         filtered_data = medianFilter(padded_data, window_length)
 
         #Getting the restored track here
-        restored_track[int(left_bound) : int(right_bound + 1)] = filtered_data
+        restored_track[int(left_bound) : int(right_bound)] = filtered_data
         
     #Writing the restored .wav file and saving it as "clean.wav"
     wavfile.write("clean_median.wav", fs, restored_track)
@@ -67,17 +67,12 @@ def main():
 if __name__ == "__main__":
 
     #Getting the argument list here
-    #fs_degraded, degraded_track = readTrack("new_degraded.wav")
-    #fs_median_clean, median_clean_track = readTrack("clean_median.wav")
-    #fs_original_clean, original_clean_track = readTrack("new_clean.wav")
-    #fs_cubic_clean, cubic_clean_track = readTrack("clean_cubic.wav")
-
     argument_list = sys.argv[1:]
 
     #Condensed options
     options = "hmrpdtsu"
     #Creating a dictionary of options
-    long_options = ["help", "mse", "run", "plot", "diff", "theme", "sound", "unit"]
+    long_options = ["help", "mse", "run", "plot", "diff", "theme", "unit"]
 
     try:
         # Parsing argument
