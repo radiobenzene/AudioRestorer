@@ -94,8 +94,15 @@ The plots can be printed using the following command
 ```
 python3 Median_Flter_Restoration.py --plot
 ```
-**The Plot for a degraded audiotrack**
-<img src="degraded_signal_cubic.png" width="350">
+#### The Plot for a degraded audiotrack 
+<img src="degraded_signal_cubic.png" width="700">
+
+#### Plot for a restored audiotrack using median filtering
+<img src="restored_signal_median.png" width="700">
+
+#### Plot for a restored audiotrack using cubic interpolation
+<img src="restored_signal_cubic.png" width="700">
+
 ### Plots for the Cubic Interpolated Audiotrack
 These are the plots
 The plots can be printed using the following command
