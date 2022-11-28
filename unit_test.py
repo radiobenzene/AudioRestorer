@@ -23,7 +23,7 @@ raw_list_1 = generateList(10)
 window_1 = 3
 list_1 = zeroPadding(raw_list_1, window_1)
 
-raw_list_2 = generateList(10000)
+raw_list_2 = generateList(100000)
 window_2 = 3
 list_2 = zeroPadding(raw_list_2, window_2)
 
