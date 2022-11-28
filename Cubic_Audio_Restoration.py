@@ -68,8 +68,6 @@ if __name__ == "__main__":
 
     #Getting the argument list here
     fs_degraded, degraded_track = readTrack("new_degraded.wav")
-    #fs_median_clean, median_clean_track = readTrack("clean_median.wav")
-    #fs_cubic_clean, cubic_clean_track = readTrack("clean_cubic.wav")
     fs_original_clean, original_clean_track = readTrack("new_clean.wav")
 
     argument_list = sys.argv[1:]
