@@ -96,13 +96,14 @@ if __name__ == "__main__":
             elif currentArgument in ("-s", "--sound"):
                 print ("Playing degraded audio tracks")
                 degraded_song = "new_degraded.wav"
-                #playsound(degraded_song)
+                
 
             elif currentArgument in ("-u", "--unit"):
                 individualUnitTest()
 
             elif currentArgument in ("-d", "--diff"):
                 print ("Displaying the MSE error difference between the two restored tracks")
+                MSE_Median = getMSE(median_clean_track, original_clean_track)
                 #MSE = getMSE(clean_track, degraded_track)
                 #print(MSE)
             
