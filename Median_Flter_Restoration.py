@@ -68,8 +68,9 @@ if __name__ == "__main__":
 
     #Getting the argument list here
     #fs_degraded, degraded_track = readTrack("new_degraded.wav")
-   # fs_median_clean, median_clean_track = readTrack("clean_median.wav")
+    #fs_median_clean, median_clean_track = readTrack("clean_median.wav")
     #fs_original_clean, original_clean_track = readTrack("new_clean.wav")
+    #fs_cubic_clean, cubic_clean_track = readTrack("clean_cubic.wav")
 
     argument_list = sys.argv[1:]
 
@@ -106,13 +107,18 @@ if __name__ == "__main__":
                 individualUnitTest()
 
             elif currentArgument in ("-d", "--diff"):
-                print ("Displaying the MSE error difference between the two restored tracks")
+                
                 fs_median_clean, median_clean_track = readTrack("clean_median.wav")
                 fs_original_clean, original_clean_track = readTrack("new_clean.wav")
+                fs_cubic_clean, cubic_clean_track = readTrack("clean_cubic.wav")
 
                 MSE_Median = getMSE(median_clean_track, original_clean_track)
-                #MSE = getMSE(clean_track, degraded_track)
-                #print(MSE)
+                MSE_Cubic = getMSE(cubic_clean_track, original_clean_track)
+                MSE_diff = MSE_Cubic - MSE_Median
+
+                print("Displaying the MSE for median filtering", MSE_Median)
+                print("Displaying the MSE for cubic interpolation", MSE_Cubic)
+                print("Displaying the MSE differences", MSE_diff)
             
             elif currentArgument in ("-p", "--plot"):
 
