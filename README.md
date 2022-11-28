@@ -94,7 +94,8 @@ The plots can be printed using the following command
 ```
 python3 Median_Flter_Restoration.py --plot
 ```
-
+**The Plot for a degraded audiotrack**
+<img src="degraded_signal_cubic.png" width="350">
 ### Plots for the Cubic Interpolated Audiotrack
 These are the plots
 The plots can be printed using the following command
@@ -125,11 +126,11 @@ To get the MSE of the cubic interpolated audiotrack, the following command must 
 python3 Cubic_Audio_Restoration --mse
 ```
 
-The MSE for the median filtered track is 0.27 and the MSE for the Cubic Interpolated track is __ . The difference between the MSEs of the 2 tracks can be printed using the following command:
+The MSE for the median filtered track is **0.27** and the MSE for the Cubic Interpolated track is **0.30**. The difference between the MSEs of the 2 tracks can be printed using the following command:
 ```
 python3 Median_Flter_Restoration.py --diff
 ```
-The comparison of the MSE and window length can be visualized using the following graph:
+The comparison of the MSEs can be visualized using the following graph:
 
 
 ## Playing the sound
