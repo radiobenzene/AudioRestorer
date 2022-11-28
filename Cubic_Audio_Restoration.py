@@ -84,24 +84,29 @@ if __name__ == "__main__":
         arguments, values = getopt.getopt(argument_list, options, long_options)
 
         for currentArgument, currentValue in arguments:
- 
+            
+
             if currentArgument in ("-h", "--help"):
                 print ("Displaying Help")
                 showHelpForCubic()
                 break
                 
             elif currentArgument in ("-m", "--mse"):
-                print ("Displaying MSE error")
+                #Read track here
                 fs_cubic_clean, cubic_clean_track = readTrack("clean_cubic.wav")
+
+                print ("Displaying MSE error")
                 MSE_cubic = getMSE(cubic_clean_track, original_clean_track)
 
                 print(MSE_cubic)
             
             elif currentArgument in ("-d", "--diff"):
                 print ("Displaying the MSE error difference between the two restored tracks")
+                #Read track here
                 fs_cubic_clean, cubic_clean_track = readTrack("clean_cubic.wav")
                 fs_median_clean, median_clean_track = readTrack("clean_median.wav")
 
+                #Calculate MSE here
                 MSE_cubic = getMSE(cubic_clean_track, original_clean_track)
                 MSE_median = getMSE(median_clean_track, original_clean_track)
 
@@ -109,12 +114,22 @@ if __name__ == "__main__":
                 print("MSE for Cubic interpolation:", MSE_median)
             
             elif currentArgument in ("-p", "--plot"):
+
+                #Reading tracks here
+                fs_cubic_clean, cubic_clean_track = readTrack("clean_cubic.wav")
+                fs_median_clean, median_clean_track = readTrack("clean_median.wav")
+                fs_original_clean, original_clean_track = readTrack("new_clean.wav")
+                fs_degraded, degraded_track = readTrack("new_degraded.wav")
+
                 print("Plotting graph for the degraded track")
                 plotGraph(degraded_track, fs_degraded, "Degraded Track")
                 
                 fs_cubic_clean, cubic_clean_track = readTrack("clean_cubic.wav")
                 print("Plotting graph for the restored track")
                 plotGraph(cubic_clean_track, fs_cubic_clean, "Restored Track using Cubic Interpolation")
+
+                print("Plotting graph for the original track")
+                plotGraph(original_clean_track, fs_original_clean, "Original Track")
             
             elif currentArgument in ("-s", "--secret"):
                 with alive_bar(100, bar = 'notes', spinner = 'notes2') as bar:  
