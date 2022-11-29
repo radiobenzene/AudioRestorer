@@ -134,6 +134,7 @@ if __name__ == "__main__":
             elif currentArgument in ("-r", "--run"):
                 #Starting timer here
                 start_time = time.time()
+                
                 for i in tqdm(range(100), desc= "Restoring Audio using median filtering", ncols = 100):   
                     main()
                     time.sleep(0.05)
