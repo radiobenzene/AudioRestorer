@@ -32,6 +32,7 @@ To run any of the files, please check whether your machine has the following dep
 10. subprocess
 
 The following dependencies can be installed on a local machine using the following command - `pip install <dependency_name>`
+A list of dependencies is available in the file `requirements.txt`
 
 ### Cloning the Project
 The project can be cloned to a local machine via a terminal window using the command:
