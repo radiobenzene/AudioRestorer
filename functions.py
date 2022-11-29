@@ -19,6 +19,7 @@ import unittest
 import sys
 import scipy
 import random
+from sklearn.metrics import mean_squared_error
 
 '''
     The current file contains all the functions
@@ -87,6 +88,7 @@ def setBlockLength(val):
 '''
     Params - filter_len - length of the filter
     Return - odd_flag - boolean variable if filter length is odd = true, else false
+             Ending execution is window length is even
 '''
 def isOddLength(filter_len):
     is_odd_flag = False
@@ -97,6 +99,8 @@ def isOddLength(filter_len):
     else:
         is_odd_flag = False
         print("Window size is even")
+        sys.exit()
+
         
         
     return is_odd_flag
@@ -208,7 +212,7 @@ def individualUnitTest():
     pass_counter = 0
     fail_counter = 0
 
-    total_tests = 5
+    total_tests = 7
 
     #Generating first test and then checking
     raw_list_1 = generateList(10)
@@ -255,6 +259,32 @@ def individualUnitTest():
     window_4 = 11
     list_4 = zeroPadding(raw_list_4, window_4)
     if(np.array_equal(np.array(medianFilter(list_4, window_4)), checkerFunction(raw_list_4, window_4))):
+        pass_counter = pass_counter + 1
+        print("OK")
+    else:
+        fail_counter = fail_counter + 1
+        print("NOT OK")
+    
+    #MSE test 1
+    mse_test_list_A = generateList(10)
+    mse_test_list_B = generateList(10)
+
+    user_mse = getMSE(mse_test_list_A, mse_test_list_B)
+    python_mse = mean_squared_error(mse_test_list_A, mse_test_list_B)
+
+    if(user_mse == python_mse):
+        pass_counter = pass_counter + 1
+        print("OK")
+    else:
+        fail_counter = fail_counter + 1
+        print("NOT OK")
+
+    mse_test_list_C = generateList(100000)
+    mse_test_list_D = generateList(100000)
+    user_mse = getMSE(mse_test_list_C, mse_test_list_D)
+    python_mse = mean_squared_error(mse_test_list_C, mse_test_list_D)
+
+    if(user_mse == python_mse):
         pass_counter = pass_counter + 1
         print("OK")
     else:
