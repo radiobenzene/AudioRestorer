@@ -166,6 +166,8 @@ The execution time for a track restored using an **AR Model** is **62.729** seco
 The comparison of the execution time can be visualized using the following graph:
 <img src="exec_graph.png" width="850">
 
+### PSNR Value
+
 ## Playing the sound
 To play the restored audio track for the median filtered algorithm, the following command must be used:
 ```
