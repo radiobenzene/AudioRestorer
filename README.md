@@ -126,8 +126,6 @@ python3 Cubic_Audio_Restoration --plot
 #### Plot for a restored audiotrack using cubic interpolation
 <img src="restored_signal_cubic.png" width="850">
 
-
-
 ## Unit testing
 To run unit tests for the `medianFilter()` function, type in the command 
 ```
@@ -156,15 +154,22 @@ The MSE for the median filtered track is **0.27** and the MSE for the Cubic Inte
 ```
 python3 Median_Flter_Restoration.py --diff
 ```
-The comparison of the MSEs can be visualized using the following graph:
+The comparison of the MSEs can be visualized on the following graph:
 <img src="graph_comparison.png" width="850">
+
+The comparison of the MSEs with respect to a change in window length can be visualized on the following graph:
+<img src="mse_window_graph.png" width="850">
 
 ### Execution Time
 The execution time for a track restored using a **median filter** is **7.6637** seconds.
 The execution time for a track restored using a **cubic interpolation** is **17.7269** seconds
 The execution time for a track restored using an **AR Model** is **62.729** seconds
-The comparison of the execution time can be visualized using the following graph:
+
+The comparison of the execution time for a median filter can be visualized on the following graph:
 <img src="exec_graph.png" width="850">
+
+The comparison of the execution time for a median filter with respect to a change in window length can be visualized on the following graph:
+<img src="exec_window_graph.png" width="850">
 
 ### PSNR Value
 
