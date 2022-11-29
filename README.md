@@ -144,6 +144,7 @@ The MSE for the median filtered track is **0.27** and the MSE for the Cubic Inte
 python3 Median_Flter_Restoration.py --diff
 ```
 The comparison of the MSEs can be visualized using the following graph:
+<img src="graph_comparison.png" width="850">
 
 ### Execution Time
 The execution time for a track restored using a **median filter** is **7.6637** seconds.
