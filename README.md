@@ -171,8 +171,6 @@ The comparison of the execution time for a median filter can be visualized on th
 The comparison of the execution time for a median filter with respect to a change in window length can be visualized on the following graph:
 <img src="exec_window_graph.png" width="850">
 
-### PSNR Value
-
 ## Playing the sound
 To play the restored audio track for the median filtered algorithm, the following command must be used:
 ```
