@@ -72,8 +72,9 @@ if __name__ == "__main__":
 
     argument_list = sys.argv[1:]
 
-    #Condensed options
+    #Condensed options for terminal
     options = "hmrpds"
+
     #Creating a dictionary of options
     long_options = ["help", "mse", "run", "plot", "diff", "secret"]
 
