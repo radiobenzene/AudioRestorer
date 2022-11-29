@@ -52,6 +52,18 @@ Let us detail the algorithm for median filtering:
 8. Substitue those values which have been filtered back into the track
 9. Write the track to a new file - `clean_median.wav`
 
+## Cubic Interpolation
+Let us detail the algorithm for cubic interpolation:
+1. Read input track - `new_degraded.wav`
+2. Read .mat file (Matlab) `threshold_bk.mat` that contains a list of points where clicks exist. For convenience, we shall denote them as "indicators".
+3. Convert the .mat file to an array. As a Matlab file is read as a "Dictionary" type, we must convert it into an "Array"
+4. Get the indices of those points where the .mat file has clicks, i.e. the indicator gets a value of 1
+5. Get the track length and convert the track length into a range, starting from [0,len(track)]
+6. From the degraded track, first remove the indices where a click has been detected, then remove the data points corresponding to these indices.
+7. Apply the out-of-the-box function `CubicSpline()` which will interpolate those points.
+8. Substitue those values which have been filtered back into the track
+9. Write the track to a new file - `clean_cubic.wav`
+
 ## Implementation specifics
 The following command must be typed in to run the median filtering algorithm on a local machine:
 ```
