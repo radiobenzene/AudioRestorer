@@ -149,6 +149,9 @@ The comparison of the MSEs can be visualized using the following graph:
 ### Execution Time
 The execution time for a track restored using a **median filter** is **7.6637** seconds.
 The execution time for a track restored using a **cubic interpolation** is **17.7269** seconds
+The execution time for a track restored using an **AR Model** is **62.729** seconds
+The comparison of the execution time can be visualized using the following graph:
+<img src="exec_graph.png" width="850">
 
 ## Playing the sound
 To play the restored audio track for the median filtered algorithm, the following command must be used:
