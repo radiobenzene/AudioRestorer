@@ -180,5 +180,5 @@ The restored audio using Cubic filtering can be played below:
 ## Themes
 An interesting addition to the project is the option of changing the theme of the loader which can be done using the extension `--theme` or `-t`. 
 
-## Credits 
+##Credits 
 Written by Uditangshu. Project for the 5C22 Computational Methods Module. Trinity College Dublin. 2022.
