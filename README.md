@@ -171,11 +171,6 @@ The comparison of the execution time for a median filter can be visualized on th
 The comparison of the execution time for a median filter with respect to a change in window length can be visualized on the following graph:
 <img src="exec_window_graph.png" width="850">
 
-## Playing the sound
-The degraded audio can be played below:
-The restored audio using Median filtering can be played below:
-The restored audio using Cubic filtering can be played below:
-
 ## Themes
 An interesting addition to the project is the option of changing the theme of the loader which can be done using the extension `--theme` or `-t`. 
 
